@@ -15,8 +15,8 @@ function openssHint(itemNum){
         _caption = "Bind port";
     }
     else if(itemNum == 3){
-        statusmenu ="此处填入你的frp服务器的特权授权码。对应服务器配置文件中的节[common]下的privilege_token字段。<br/><font color='#F46'>注意：</font>使用带有特殊字符的密码，可能会导致frpc链接不上服务器。";
-        _caption = "Privilege Token";
+        statusmenu ="此处填入你的frp服务器的特权授权码。对应服务器配置文件中的节[common]下的token字段。<br/><font color='#F46'>注意：</font>使用带有特殊字符的密码，可能会导致frpc链接不上服务器。";
+        _caption = "Token";
     }
     else if(itemNum == 4){
         statusmenu ="此处填入你的frp服务器HTTP穿透服务的端口，对应服务器配置文件中的节[common]下的vhost_http_port字段";

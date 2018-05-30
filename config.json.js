@@ -4,5 +4,5 @@
     "md5": "1399f62f5d7627dbb4104e77232fdce8", 
     "module": "frps", 
     "title": "frps穿透服务器", 
-    "version": "1.4.14"
+    "version": "1.4.15"
 }

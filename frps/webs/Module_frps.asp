@@ -209,6 +209,9 @@ function toggle_switch(){ //根据frps_enable的值，打开或者关闭开关
         rrt.checked = false;
     } else {
         rrt.checked = true;
+        var dashboard_src = document.location.protocol + "//" + document.location.host + ":" + db_frps["frps_common_dashboard_port"];
+        var icon_src = dashboard_src + "/static/favicon.ico";
+        $j("#open_dashboard").attr("href", dashboard_src).show().children("img").attr("src", icon_src);
     }
 }
 
@@ -240,7 +243,15 @@ function pass_checked(obj){
 
 function onSubmitCtrl(o, s) { //提交操作，提交时运行config-frps.sh，显示5秒的载入画面
     var _form = document.form;
-    if(trim(_form.frps_common_dashboard_port.value)=="" || trim(_form.frps_common_dashboard_user.value)=="" || trim(_form.frps_common_dashboard_pwd.value)=="" || trim(_form.frps_common_bind_port.value)=="" || trim(_form.frps_common_privilege_token.value)=="" || trim(_form.frps_common_vhost_http_port.value)=="" || trim(_form.frps_common_vhost_https_port.value)=="" || trim(_form.frps_common_max_pool_count.value)=="" || trim(_form.frps_common_cron_time.value)==""){
+    if(trim(_form.frps_common_dashboard_port.value)=="" 
+    || trim(_form.frps_common_dashboard_user.value)=="" 
+    || trim(_form.frps_common_dashboard_pwd.value)=="" 
+    || trim(_form.frps_common_bind_port.value)=="" 
+    || trim(_form.frps_common_token.value)=="" 
+    || trim(_form.frps_common_vhost_http_port.value)=="" 
+    || trim(_form.frps_common_vhost_https_port.value)=="" 
+    || trim(_form.frps_common_max_pool_count.value)=="" 
+    || trim(_form.frps_common_cron_time.value)==""){
         alert("提交的表单不能为空!");
         return false;
     }
@@ -319,7 +330,7 @@ function version_show(){
                             <tr>
                                 <td bgcolor="#4D595D" colspan="3" valign="top">
                                     <div>&nbsp;</div>
-                                    <div style="float:left;" class="formfonttitle">软件中心 - Frps内网穿透</div>
+                                    <div style="float:left;" class="formfonttitle">软件中心 - Frps内网穿透服务器端 - Brian修改版</div>
                                     <div style="float:right; width:15px; height:25px;margin-top:10px"><img id="return_btn" onclick="reload_Soft_Center();" align="right" style="cursor:pointer;position:absolute;margin-left:-30px;margin-top:-25px;" title="返回软件中心" src="/images/backprev.png" onMouseOver="this.src='/images/backprevclick.png'" onMouseOut="this.src='/images/backprev.png'"></img></div>
                                     <div style="margin-left:5px;margin-top:10px;margin-bottom:10px"><img src="/images/New_ui/export/line_export.png"/></div>
                                     <div class="formfontdesc" id="cmdDesc"><i>* 为了Frps稳定运行，请开启虚拟内存功能！！！</i>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://koolshare.cn/thread-65379-1-1.html"  target="_blank"><i>服务器搭建教程</i></a></div>
@@ -359,13 +370,18 @@ function version_show(){
                                             <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(1)">Dashboard port</a></th>
                                             <td>
                                                 <input type="text" class="input_ss_table" value="" id="frps_common_dashboard_port" name="frps_common_dashboard_port" maxlength="5" value="" placeholder=""/>
+                                                <div style="float:right;">
+                                                    <a id="open_dashboard" href="#" target="_blank" style="display: none;">
+                                                        <img align="right" title="打开Dashboard" src="/images/favicon.png" style="height:30px;" ></img>
+                                                    </a>
+                                                </div>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(11)">Dashboard User</a></th>
                                             <td>
-                                        <input type="text" class="input_ss_table" id="frps_common_dashboard_user" name="frps_common_dashboard_user" maxlength="50" value="" />
+                                                <input type="text" class="input_ss_table" id="frps_common_dashboard_user" name="frps_common_dashboard_user" maxlength="50" value="" />
                                             </td>
                                         </tr>
 
@@ -384,21 +400,21 @@ function version_show(){
                                         </tr>
 
                                         <tr>
-                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(3)">Privilege Token</a></th>
+                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(3)">Token</a></th>
                                             <td>
-                                                <input type="password" name="frps_common_privilege_token" id="frps_common_privilege_token" class="input_ss_table" autocomplete="new-password" autocorrect="off" autocapitalize="off" maxlength="256" value="" onBlur="switchType(this, false);" onFocus="switchType(this, true);"/>
+                                                <input type="password" name="frps_common_token" id="frps_common_token" class="input_ss_table" autocomplete="new-password" autocorrect="off" autocapitalize="off" maxlength="256" value="" onBlur="switchType(this, false);" onFocus="switchType(this, true);"/>
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(4)">vhost http port</a></th>
+                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(4)">vhost http port(<i>0为关闭</i>)</a></th>
                                             <td>
                                                 <input type="text" class="input_ss_table" id="frps_common_vhost_http_port" name="frps_common_vhost_http_port" maxlength="6" value="" />
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(5)">vhost https port</a></th>
+                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(5)">vhost https port(<i>0为关闭</i>)</a></th>
                                             <td>
                                                 <input type="text" class="input_ss_table" id="frps_common_vhost_https_port" name="frps_common_vhost_https_port" maxlength="6" value="" />
                                             </td>
