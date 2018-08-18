@@ -11,127 +11,7 @@
 <link rel="stylesheet" type="text/css" href="index_style.css"/> 
 <link rel="stylesheet" type="text/css" href="form_style.css"/>
 <link rel="stylesheet" type="text/css" href="css/element.css">
-<style>
-.Bar_container {
-    width:85%;
-    height:20px;
-    border:1px inset #999;
-    margin:0 auto;
-    margin-top:20px \9;
-    background-color:#FFFFFF;
-    z-index:100;
-}
-#proceeding_img_text {
-    position:absolute;
-    z-index:101;
-    font-size:11px;
-    color:#000000;
-    line-height:21px;
-    width: 83%;
-}
-#proceeding_img {
-    height:21px;
-    background:#C0D1D3 url(/images/ss_proceding.gif);
-}
-#ClientList_Block_PC{
-    border:1px outset #999;
-    background-color:#576D73;
-    position:absolute;
-    *margin-top:26px;
-    margin-left:2px;
-    *margin-left:-353px;
-    width:346px;
-    text-align:left;
-    height:auto;
-    overflow-y:auto;
-    z-index:200;
-    padding: 1px;
-    display:none;
-}
-#ClientList_Block_PC div{
-    background-color:#576D73;
-    height:auto;
-    *height:20px;
-    line-height:20px;
-    text-decoration:none;
-    font-family: Lucida Console;
-    padding-left:2px;
-}
-
-#ClientList_Block_PC a{
-    background-color:#EFEFEF;
-    color:#FFF;
-    font-size:12px;
-    font-family:Arial, Helvetica, sans-serif;
-    text-decoration:none;
-}
-#ClientList_Block_PC div:hover, #ClientList_Block a:hover {
-    background-color:#3366FF;
-    color:#FFFFFF;
-    cursor:default;
-}
-.close {
-    background: red;
-    color: black;
-    border-radius: 12px;
-    line-height: 18px;
-    text-align: center;
-    height: 18px;
-    width: 18px;
-    font-size: 16px;
-    padding: 1px;
-    top: -10px;
-    right: -10px;
-    position: absolute;
-}
-/* use cross as close button */
-.close::before {
-    content: "\2716";
-}
-.contentM_qis {
-    position: fixed;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius:10px;
-    z-index: 10;
-    background-color:#2B373B;
-    margin-left: -100px;
-    top: 10px;
-    width:720px;
-    return height:auto;
-    box-shadow: 3px 3px 10px #000;
-    background: rgba(0,0,0,0.85);
-    display:none;
-}
-.user_title{
-    text-align:center;
-    font-size:18px;
-    color:#99FF00;
-    padding:10px;
-    font-weight:bold;
-}
-.frpc_btn {
-    border: 1px solid #222;
-    background: linear-gradient(to bottom, #003333  0%, #000000 100%); /* W3C */
-    font-size:10pt;
-    color: #fff;
-    padding: 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-    width:16%;
-}
-.frpc_btn:hover {
-    border: 1px solid #222;
-    background: linear-gradient(to bottom, #27c9c9  0%, #279fd9 100%); /* W3C */
-    font-size:10pt;
-    color: #fff;
-    padding: 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-    width:16%;
-}
-input[type=button]:focus {
-    outline: none;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="/res/frps.css">
 <link rel="stylesheet" type="text/css" href="usp_style.css"/>
 <script type="text/javascript" src="/state.js"></script>
 <script type="text/javascript" src="/popup.js"></script>
@@ -143,158 +23,20 @@ input[type=button]:focus {
 <script type="text/javascript" src="/switcherplugin/jquery.iphone-switch.js"></script>
 <script type="text/javascript" src="/dbconf?p=frps&v=<% uptime(); %>"></script>
 <script type="text/javascript" src="/res/frps-menu.js"></script>
-<script>
-var $j = jQuery.noConflict();
-var $G = function(id) {
-    return document.getElementById(id);
-};
-function initial(){
-    show_menu(menu_hook);
-    get_status();
-    conf2obj();
-    version_show();
-    buildswitch();
-    toggle_switch();
-}
-function get_status() {
-    $j.ajax({
-        url: 'apply.cgi?current_page=Module_frps.asp&next_page=Module_frps.asp&group_id=&modified=0&action_mode=+Refresh+&action_script=&action_wait=&first_time=&preferred_lang=CN&SystemCmd=frps_status.sh',
-        dataType: 'html',
-        error: function(xhr) {
-            alert("error");
-        },
-        success: function(response) {
-            //alert("success");
-            setTimeout("check_FRPS_status();", 1000);
-        }
-    });
-}
-var noChange_status=0;
-var _responseLen;
-function check_FRPS_status(){
-    $j.ajax({
-        url: '/res/frps_check.html',
-        dataType: 'html',
-        
-        error: function(xhr){
-            setTimeout("check_FRPS_status();", 1000);
-        },
-        success: function(response){
-            var _cmdBtn = document.getElementById("cmdBtn");
-            if(response.search("XU6J03M6") != -1){
-                frps_status = response.replace("XU6J03M6", " ");
-                //alert(frpc_status);
-                document.getElementById("status").innerHTML = frps_status;
-                return true;
-            }
-
-            if(_responseLen == response.length){
-                noChange_status++;
-            }else{
-                noChange_status = 0;
-            }
-            if(noChange_status > 100){
-                noChange_status = 0;
-                //refreshpage();
-            }else{
-                setTimeout("check_FRPS_status();", 400);
-            }
-            _responseLen = response.length;
-        }
-    });
-}
-function toggle_switch(){ //根据frps_enable的值，打开或者关闭开关
-    var rrt = document.getElementById("switch");
-    if (document.form.frps_enable.value != "1") {
-        rrt.checked = false;
-    } else {
-        rrt.checked = true;
-        var dashboard_src = document.location.protocol + "//" + document.location.host + ":" + db_frps["frps_common_dashboard_port"];
-        var icon_src = dashboard_src + "/static/favicon.ico";
-        $j("#open_dashboard").attr("href", dashboard_src).show().children("img").attr("src", icon_src);
-    }
-}
-
-function buildswitch(){ //生成开关的功能，checked为开启，此时传递frps_enable=1
-    $j("#switch").click(
-    function(){
-        if(document.getElementById('switch').checked){
-            document.form.frps_enable.value = 1;
-            
+<script type="text/javascript">
+    function menu_hook(title, tab) {
+        var enable_ss = "<% nvram_get("enable_ss"); %>";
+        var enable_soft = "<% nvram_get("enable_soft"); %>";
+        if(enable_ss == "1" && enable_soft == "1"){
+            tabtitle[tabtitle.length -2] = new Array("", "Frps 内网穿透");
+            tablink[tablink.length -2] = new Array("", "Module_frps.asp");
         }else{
-            document.form.frps_enable.value = 0;
+            tabtitle[tabtitle.length -1] = new Array("", "Frps 内网穿透");
+            tablink[tablink.length -1] = new Array("", "Module_frps.asp");
         }
-    });
-}
-
-function conf2obj(){ //表单填写函数，将dbus数据填入到对应的表单中
-    for (var field in db_frps) {
-        $j('#'+field).val(db_frps[field]);
     }
-}
-
-function validForm(){
-    return true;
-}
-
-function pass_checked(obj){
-	switchType(obj, document.form.show_pass.checked, true);
-}
-
-function onSubmitCtrl(o, s) { //提交操作，提交时运行config-frps.sh，显示5秒的载入画面
-    var _form = document.form;
-    if(trim(_form.frps_common_dashboard_port.value)=="" 
-    || trim(_form.frps_common_dashboard_user.value)=="" 
-    || trim(_form.frps_common_dashboard_pwd.value)=="" 
-    || trim(_form.frps_common_bind_port.value)=="" 
-    || trim(_form.frps_common_token.value)=="" 
-    || trim(_form.frps_common_vhost_http_port.value)=="" 
-    || trim(_form.frps_common_vhost_https_port.value)=="" 
-    || trim(_form.frps_common_max_pool_count.value)=="" 
-    || trim(_form.frps_common_cron_time.value)==""){
-        alert("提交的表单不能为空!");
-        return false;
-    }
-    document.form.action_mode.value = s;
-    document.form.SystemCmd.value = "config-frps.sh";
-    document.form.submit();
-    showLoading(5);
-}
-
-function done_validating(action) { //提交操作5秒后刷洗网页
-    refreshpage(5);
-}
-function reload_Soft_Center(){ //返回软件中心按钮
-    location.href = "/Main_Soft_center.asp";
-}
-function menu_hook(title, tab) {
-    var enable_ss = "<% nvram_get("enable_ss"); %>";
-    var enable_soft = "<% nvram_get("enable_soft"); %>";
-    if(enable_ss == "1" && enable_soft == "1"){
-        tabtitle[tabtitle.length -2] = new Array("", "Frps 内网穿透");
-        tablink[tablink.length -2] = new Array("", "Module_frps.asp");
-    }else{
-        tabtitle[tabtitle.length -1] = new Array("", "Frps 内网穿透");
-        tablink[tablink.length -1] = new Array("", "Module_frps.asp");
-    }
-}
-function version_show(){
-    $j.ajax({
-        url: 'https://koolshare.ngrok.wang/frps/config.json.js',
-        type: 'GET',
-        dataType: 'jsonp',
-        success: function(res) {
-            if(typeof(res["version"]) != "undefined" && res["version"].length > 0) {
-                if(res["version"] == db_frps["frps_version"]){
-                    $j("#frps_version_show").html("<i>插件版本：" + res["version"]);
-                   }else if(res["version"] > db_frpc["frps_version"]) {
-                    $j("#frps_version_show").html("<font color=\"#66FF66\">有新版本：</font>" + res.version);
-                }
-            }
-        }
-    });
-}
 </script>
+<script type="text/javascript" src="/res/frps.js"></script>
 </head>
 <body onload="initial();">
 <div id="TopBanner"></div>
@@ -339,7 +81,7 @@ function version_show(){
                                             <th>
                                                 <label><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(0)">开启Frps</a></label>
                                             </th>
-                                            <td colspan="2">
+                                            <td>
                                                 <div class="switch_field" style="display:table-cell;float: left;">
                                                     <label for="switch">
                                                         <input id="switch" class="switch" type="checkbox" style="display: none;">
@@ -352,6 +94,35 @@ function version_show(){
                                                     </label>
                                                 </div>
                                                 <span style="margin-left: 300px;"><a href="https://raw.githubusercontent.com/koolshare/merlin_frps/master/Changelog.txt" target="_blank"><em><u>[ 更新日志 ]</u></em></a></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr id="switch_tr">
+                                            <th>
+                                                <label><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(51)">远程唤醒Frpc</a></label>
+                                            </th>
+                                            <td>
+                                                <div class="switch_field" style="display:table-cell;float: left;">
+                                                    <label for="client-switch">
+                                                        <input id="client-switch" class="switch" type="checkbox" style="display: none;">
+                                                        <div class="switch_container" >
+                                                            <div class="switch_bar"></div>
+                                                            <div class="switch_circle transition_style">
+                                                                <div></div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div id="frps_aliddns_status" style="padding-top:5px;margin-left:50px;margin-top:0px;float: left;"><i><span><% dbus_get_def("frps_aliddns_last_act", "获取中..."); %></span></i></div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(52)">AliDDNS</a></th>
+                                            <td>
+                                                <input type="text" class="input_ss_table" id="frps_aliddns_name" name="frps_aliddns_name" maxlength="50" value="" style="width:80px;" />                                      
+                                                <span>.</span>
+                                                <input type="text" class="input_ss_table" maxlength="50" readonly value='<% dbus_get_def("aliddns_domain", "your-aliyun-domain.com"); %>' />                                      
                                             </td>
                                         </tr>
                                     </table>
@@ -370,11 +141,7 @@ function version_show(){
                                             <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(1)">Dashboard port</a></th>
                                             <td>
                                                 <input type="text" class="input_ss_table" value="" id="frps_common_dashboard_port" name="frps_common_dashboard_port" maxlength="5" value="" placeholder=""/>
-                                                <div style="float:right;">
-                                                    <a id="open_dashboard" href="#" target="_blank" style="display: none;">
-                                                        <img align="right" title="打开Dashboard" src="/images/favicon.png" style="height:30px;" ></img>
-                                                    </a>
-                                                </div>
+                                                <input class="button_gen_long" id="open_dashboard" type="button" value="打开Dashboard"/>
                                             </td>
                                         </tr>
 
@@ -395,7 +162,7 @@ function version_show(){
                                         <tr>
                                             <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(2)">Bind port</a></th>
                                             <td>
-                                        <input type="text" class="input_ss_table" id="frps_common_bind_port" name="frps_common_bind_port" maxlength="5" value="" />
+                                                <input type="text" class="input_ss_table" id="frps_common_bind_port" name="frps_common_bind_port" maxlength="5" value="" />
                                             </td>
                                         </tr>
 

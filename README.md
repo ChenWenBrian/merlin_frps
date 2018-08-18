@@ -1,11 +1,15 @@
 # merlin_frps
 
-frp server for merlin
+梅林固件专用frp服务器Brian修改版
 
 ---
 
 ## Koolshare Asuswrt-Merlin Frps Changelog
 ---
+1.4.16 ( 2018-08-14 22:00 )
+ - update 程序：更新frp服务端到0.21.0版本
+ - update 提示：增加远程控制客户端启动与停止连接功能（基于aliddns）
+
 1.4.15 ( 2018-05-30 22:00 )
  - update 程序：更新frp服务端到0.19.1版本
  - update 提示：修改了一些提示，方便关闭vhost http(s) port

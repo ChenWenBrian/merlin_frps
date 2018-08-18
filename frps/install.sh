@@ -1,7 +1,7 @@
 #!/bin/sh
 
 MODULE=frps
-VERSION="1.4.15"
+VERSION="1.4.16"
 cd /
 rm -f /koolshare/init.d/S97frps.sh
 cp -f /tmp/$MODULE/bin/* /koolshare/bin/
@@ -14,6 +14,7 @@ killall ${MODULE}
 chmod +x /koolshare/bin/${MODULE}
 chmod +x /koolshare/scripts/config-frps.sh
 chmod +x /koolshare/scripts/frps_status.sh
+chmod +x /koolshare/scripts/frps_aliddns.sh
 chmod +x /koolshare/scripts/uninstall_frps.sh
 chmod +x /koolshare/init.d/S97frps.sh
 sleep 1
