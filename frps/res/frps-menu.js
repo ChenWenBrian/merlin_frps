@@ -59,11 +59,11 @@ function openssHint(itemNum){
         _caption = "TCP 多路复用";
     }
     else if(itemNum == 51){
-        statusmenu ="使用AliDDNS远程唤醒或者断开客户端。当域名解析IP为0.0.0.0时表示关闭FRPC；当域名解析为路由器的公网IP时，表示唤醒FRPC。";
+        statusmenu ="使用[AliDDNS]一键远程唤醒或者休眠客户端。当域名解析IP为0.0.0.0时表示关闭FRPC；当域名解析为路由器的公网IP时，表示唤醒FRPC。本功能依赖[AliDDNS]插件，请安装该插件，并配置相关域名访问的KEY。";
         _caption = "远程管理FRPC";
     }
     else if(itemNum == 52){
-        statusmenu ="远程管理FRPC需要依赖阿里的域名API，在这里指定FRPC要连接的域名前缀，然后通过修改域名解析的IP实现远程唤醒或断开FRPC的功能。";
+        statusmenu ="远程管理FRPC需要依赖[AliDDNS]插件的部分配置，在这里指定FRPC要连接的域名前缀，然后通过一键修改域名解析的IP实现远程唤醒或休眠FRPC的功能。本处域名用于控制FRPC连接FRPS用，建议不要与[AliDDNS]插件的域名重叠。";
         _caption = "远程管理FRPC的域名";
     }
         //return overlib(statusmenu, OFFSETX, -160, LEFT, DELAY, 200);

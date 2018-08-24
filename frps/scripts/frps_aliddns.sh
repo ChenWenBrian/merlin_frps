@@ -22,20 +22,6 @@ else
 	ip="0.0.0.0"
 fi
 
-current_ip=`nslookup $frps_aliddns_name.$aliddns_domain $aliddns_dns 2>&1`
-
-if [ "$?" -eq "0" ]
-then
-    current_ip=`echo "$current_ip" | grep 'Address 1' | tail -n1 | awk '{print $NF}'`
-
-    if [ "$ip" = "$current_ip" ]
-    then
-        echo "skipping"
-        dbus set frps_aliddns_last_act="$now: skipped($ip)"
-        exit 0
-    fi 
-fi
-
 
 timestamp=`date -u "+%Y-%m-%dT%H%%3A%M%%3A%SZ"`
 

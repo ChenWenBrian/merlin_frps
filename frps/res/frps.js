@@ -180,8 +180,8 @@ function init_aliddns_switch() {
             statusSpan.text("更新中.");
             var count = 0;
             tid = setInterval(function () {
-                if (++count === 10) {
-                    statusSpan.text("更新状态超时，请尝试刷新页面。");
+                if (++count === 15) {
+                    statusSpan.text("更新状态超时，请尝试刷新页面[F5]。");
                     clearInterval(tid);
                 } else {
                     statusSpan.text(statusSpan.text() + ".");
