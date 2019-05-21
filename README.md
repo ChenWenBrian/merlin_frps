@@ -15,6 +15,9 @@
 
 ## Koolshare Asuswrt-Merlin Frps Changelog
 ---
+1.4.17 ( 2019-05-21 20:00 )
+ - update 程序：更新frp服务端到0.24.0版本
+
 1.4.16 ( 2018-08-14 22:00 )
  - update 程序：更新frp服务端到0.21.0版本
  - update 提示：增加远程控制客户端启动与停止连接功能（基于aliddns插件）
