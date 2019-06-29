@@ -18,13 +18,13 @@
 
 > PS: 程序版本号与官方最新原版保持一致，这样梅林软件中心就不会显示升级小图标了
 
-1.4.16 ( 2019-06-29 12:00 )
+[1.4.16-0.27 ( 2019-06-29 12:00 )](https://github.com/ChenWenBrian/merlin_frps/releases/tag/1.4.16-0.27)
  - update 程序：更新frp服务端到0.27.0版本(**注：0.25以上版本的客户端的xtcp与0.25以前的版本不兼容**)
 
-1.4.16 ( 2019-05-21 20:00 )
+[1.4.16-0.24 ( 2019-05-21 20:00 )](https://github.com/ChenWenBrian/merlin_frps/releases/tag/1.4.16-0.24)
  - update 程序：更新frp服务端到0.24.0版本
 
-1.4.16 ( 2018-08-14 22:00 )
+[1.4.16-0.21 ( 2018-08-14 22:00 )](https://github.com/ChenWenBrian/merlin_frps/releases/tag/1.4.16-0.21)
  - update 程序：更新frp服务端到0.21.0版本
  - update 提示：增加远程控制客户端启动与停止连接功能（客户端需[AliDDNS脚本](https://github.com/ChenWenBrian/AliDDNS)）
 
