@@ -118,7 +118,7 @@
                                         </tr>
 
                                         <tr>
-                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(52)">AliDDNS</a></th>
+                                            <th width="20%"><a class="hintstyle" href="javascript:void(0);" onclick="openssHint(52)">AliDDNS(<i>插件</i>)</a></th>
                                             <td>
                                                 <input type="text" class="input_ss_table" id="frps_aliddns_name" name="frps_aliddns_name" maxlength="50" value="" style="width:80px;" />                                      
                                                 <span>.</span>
