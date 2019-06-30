@@ -3,11 +3,11 @@
 eval `dbus export aliddns_`
 eval `dbus export frps_aliddns_`
 
-now=`date`
+now=`echo 【$(TZ=UTC-8 date -R +%Y年%m月%d日\ %X)】`
 
 die () {
     echo $1
-    dbus ram frps_aliddns_last_act="$now: failed($1)"
+    dbus set frps_aliddns_last_act="$now: failed($1)"
 }
 
 [ "$aliddns_curl" = "" ] && aliddns_curl="curl -s whatismyip.akamai.com"
@@ -80,8 +80,8 @@ fi
 # save to file
 if [ "$frps_aliddns_record_id" = "" ]; then
     # failed
-    dbus ram frps_aliddns_last_act="$now: failed"
+    dbus set frps_aliddns_last_act="$now: failed"
 else
-    dbus ram frps_aliddns_record_id=$frps_aliddns_record_id
-    dbus ram frps_aliddns_last_act="$now: success($ip)"
+    dbus set frps_aliddns_record_id=$frps_aliddns_record_id
+    dbus set frps_aliddns_last_act="$now: success($ip)"
 fi
